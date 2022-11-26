@@ -1,4 +1,4 @@
-{% extends 'administrateur/base.html' %}
+{% extends 'staff/base.html' %}
 
 {% block main %}
 <div id="content" class="main-content" >
@@ -10,7 +10,7 @@
             <div class="widget-header">                                
                 <div class="row">
                     <div style="text-align:center;" class="col-xl-12 col-md-12 col-sm-12 col-12">
-                        <h4>Ajouter Client</h4>
+                        <h4>Ajouter Facture</h4>
                     </div>                                                                        
                 </div>
             </div>
@@ -18,33 +18,33 @@
                 <form method="POST" action="do_client">
                     {% csrf_token %}
                     <div class="form-group mb-4">
-                        <input type="text" class="form-control" name="prenom" id="rPassword" placeholder="Prenom *">
+                        <input type="date" class="form-control" name="date" id="rPassword" placeholder="Date *">
                     </div>
-                    <div class="form-group mb-4">
+                    {% comment %} <div class="form-group mb-4">
                         <input type="text" class="form-control" name="nom" id="rPassword" placeholder="Nom *">
+                    </div> {% endcomment %}
+                    <div class="form-group mb-4">
+                        <input type="number" class="form-control" name="poids_en_gramme" id="rEmail" placeholder="Poids en Gramme *">
                     </div>
                     <div class="form-group mb-4">
-                        <input type="text" class="form-control" name="adresse" id="rEmail" placeholder="Adresse *">
+                        <input type="number" class="form-control" name="titre_en_caract" id="rEmail" placeholder="Titre_en_caract *">
                     </div>
                     <div class="form-group mb-4">
-                        <input type="number" class="form-control" name="telephone" id="rEmail" placeholder="Telephone *">
+                        <input type="number" class="form-control" name="prix_unitaire" id="rEmail" placeholder="Prix_unitaire *">
                     </div>
-                    <div class="form-group mb-4">
-                        <input type="text" class="form-control" name="email" id="rEmail" placeholder="Email *">
-                    </div>
-                    <div class="form-group mb-4">
+                    {% comment %} <div class="form-group mb-4">
                         <select class="form-control  basic" name="sexe">
                             <option value="Masculin" selected="selected">Masculin</option>
                             <option value="Feminin">Feminin</option>
                         </select>
-                    </div>
+                    </div> {% endcomment %}
                    <div style="display: inline-block;"> 
                     <button style="display: inline-block;" type="submit" class="btn btn-primary mt-3" style="margin-left:250px;">Ajouter</button>
-                    <a style="display: inline-block;margin-left:130px;" href="/index" class="btn btn-danger mt-3" >Annuler</a>
+                    <a style="display: inline-block;margin-left:130px;" href="/index_staff" class="btn btn-danger mt-3" >Annuler</a>
                 </div>
                     <div class="row">
                         {% if messages %}
-                       <div class="col-12">
+                       <div class="col-12">s
                           {% for message in messages %}
                           {% if message.tags == 'error' %}
                           <div class="alert alert-danger" style="margin-top:10px">{{ message }}</div>
@@ -57,30 +57,7 @@
 
                 <div class="code-section-container">
                             
-{% comment %} 
-                    <div class="code-section text-left">
-                        <pre>
-&lt;form&gt;
-&lt;div class="form-group mb-4"&gt;
-&lt;input type="email" class="form-control" id="rEmail" placeholder="Email address *"&gt;
-&lt;/div&gt;
-&lt;div class="form-group mb-4"&gt;
-&lt;input type="password" class="form-control" id="rPassword" placeholder="Password *"&gt;
-&lt;/div&gt;
-&lt;div class="form-group"&gt;
-&lt;input type="password" class="form-control" id="rConfirmPassword" placeholder="Confirm Password *"&gt;
-&lt;/div&gt;
-&lt;small id="emailHelp2" class="form-text text-muted"&gt;*Required Fields&lt;/small&gt;
-&lt;div class="form-group form-check pl-0 mt-5"&gt;
-&lt;div class="custom-control custom-checkbox checkbox-info"&gt;
-&lt;input type="checkbox" class="custom-control-input" id="rChkbox"&gt;
-&lt;label class="custom-control-label" for="rChkbox"&gt;Subscribe to weekly newsletter&lt;/label&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;button type="submit" class="btn btn-primary mt-3"&gt;Submit&lt;/button&gt;
-&lt;/form&gt;
-</pre>
-                    </div> {% endcomment %}
+
                 </div>
             </div>
         </div>
