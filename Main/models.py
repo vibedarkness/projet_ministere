@@ -36,18 +36,23 @@ class Client(models.Model):
 class Facture(models.Model):
     client=models.ForeignKey(Client, on_delete=models.CASCADE)
     date=models.DateField(auto_now_add=True)
-    designation=models.CharField(max_length=200, default="lingots d'or")
+    designation=models.CharField(max_length=200)
     poids_en_grammes=models.IntegerField()
     titre_en_caract=models.IntegerField()
     prix_unitaire=models.IntegerField(default=40)
-    prix_total=models.IntegerField()
+    # prix_total=models.IntegerField()
 
-class Attestation(models.Model):
-    facture=models.ForeignKey(Facture, on_delete=models.CASCADE)
-    client=models.ForeignKey(Client, on_delete=models.CASCADE)
+# class Attestation(models.Model):
+#     facture=models.ForeignKey(Facture, on_delete=models.CASCADE)
+#     client=models.ForeignKey(Client, on_delete=models.CASCADE)
     
-
-
+class BordereauAdministratif(models.Model):
+    client=models.ForeignKey(Client, on_delete=models.CASCADE)
+    parametre=models.CharField(max_length=200)
+    date=models.DateField(auto_now_add=True)
+    numero_ordre=models.IntegerField()
+    type_echantillon=models.CharField(max_length=500)
+    
 
 
 

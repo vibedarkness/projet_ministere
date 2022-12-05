@@ -1,84 +1,178 @@
-{% extends 'staff/base.html' %}
+{% extends 'staff/base.html' %} 
 
 {% block main %}
 <div class="main-container" id="container">
-<div id="content" class="main-content">
+  <div id="content" class="main-content">
     <div class="layout-px-spacing">
-        
-        <div class="row layout-top-spacing" id="cancel-row">
-            
-            <h3 style="margin-left:300px;"><u>LISTE DES CLIENTS</u></h3>
-            
-        
-            <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
-                
-                <div class="widget-content widget-content-area br-6" style="margin-right:150px;">
-                    
-                    <table id="zero-config" class="table dt-table-hover" style="width:100%">
-                        
-                        <thead>
-                          
-                            <tr>
-                                <th>Prenom</th>
-                                <th>Nom</th>
-                                <th>Adresse</th>
-                                <th>Telephone</th>
-                                <th>Email</th>
-                                <th>Sexe</th>
-                                <th class="no-content">Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {% for cli in clients %} 
-                            <tr>
-                                <td style="color:white;">{{cli.prenom }}</td>    
-                                <td style="color:white;">{{cli.nom }}</td>
-                                <td style="color:white;">{{ cli.adresse }}</td>
-                                <td style="color:white;">{{ cli.telephone }}</td>
-                                <td style="color:white;">{{ cli.email }}</td>
-                                <td style="color:white;">{{ cli.sexe }}</td>
-                                <td>
-                                    <div class="btn-group">
-                                        <button type="button" class="btn btn-dark btn-sm">actions</button>
-                                        <button type="button" class="btn btn-dark btn-sm dropdown-toggle dropdown-toggle-split" id="dropdownMenuReference1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-reference="parent">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down"><polyline points="6 9 12 15 18 9"></polyline></svg>
-                                        </button>
-                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuReference1">
-                                            <a class="dropdown-item" href="/voir_staff">voir</a>
-                                            <a class="dropdown-item" href="/add_facture">Ajouter</a>
-                                            {% comment %} <a class="dropdown-item" href="#">Modifier</a>
-                                            <a class="dropdown-item" href="#">Supprimer</a> {% endcomment %}
-                                  
-                                        </div>
-                                        </div>
-                                </td> 
-                            </tr>
-                             {% endfor %} 
-                        </tbody>
-                        {% comment %} <tfoot>
-                            <tr>
-                                <th>Prenom</th>
-                                <th>Nom</th>
-                                <th>Adresse</th>
-                                <th>Telephone</th>
-                                <th>Email</th>
-                                <th>Sexe</th>
-                                <th class="no-content">Actions</th>
-                            </tr>
-                        </tfoot> {% endcomment %}
-                    </table>
-                </div>
-            </div>
+      <div class="row layout-top-spacing" id="cancel-row">
+        <h3 style="margin-left: 300px"><u>LISTE DES CLIENTS</u></h3>
 
+        <div class="col-xl-12 col-lg-12 col-sm-12 layout-spacing">
+          <div
+            class="widget-content widget-content-area br-6"
+            style="margin-right: 150px"
+          >
+            <table
+              id="zero-config"
+              class="table dt-table-hover"
+              style="width: 100%"
+            >
+              <thead>
+                <tr>
+                  <th>Prenom</th>
+                  <th>Nom</th>
+                  <th>Adresse</th>
+                  <th>Telephone</th>
+                  <th>Email</th>
+                  <th>Sexe</th>
+                  <th class="no-content">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for cli in clients %}
+                <tr>
+                  <td style="color: white">{{cli.prenom }}</td>
+                  <td style="color: white">{{cli.nom }}</td>
+                  <td style="color: white">{{ cli.adresse }}</td>
+                  <td style="color: white">{{ cli.telephone }}</td>
+                  <td style="color: white">{{ cli.email }}</td>
+                  <td style="color: white">{{ cli.sexe }}</td>
+                  <td>
+                    <div class="btn-group">
+                      <button type="button" class="btn btn-dark btn-sm">
+                        actions
+                      </button>
+                      <button
+                        type="button"
+                        class="btn btn-dark btn-sm dropdown-toggle dropdown-toggle-split"
+                        id="dropdownMenuReference1"
+                        data-toggle="dropdown"
+                        aria-haspopup="true"
+                        aria-expanded="false"
+                        data-reference="parent"
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="24"
+                          height="24"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="2"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          class="feather feather-chevron-down"
+                        >
+                          <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                      </button>
+                      <div
+                        class="dropdown-menu"
+                        aria-labelledby="dropdownMenuReference1"
+                      >
+                        <a class="dropdown-item" href="/voir_staff">voir</a>
+                        <a class="dropdown-item" class="btn btn-dark mb-2 mr-2" data-toggle="modal" data-target="#loginModal" value="{{cli.id}}" href="#">Ajouter</a>
+
+                        {% comment %} <a class="dropdown-item" href="#">Modifier</a>
+                        <a class="dropdown-item" href="#">Supprimer</a> {% endcomment %}
+
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+                {% endfor %}
+              </tbody>
+              {% comment %}
+              <tfoot>
+                <tr>
+                  <th>Prenom</th>
+                  <th>Nom</th>
+                  <th>Adresse</th>
+                  <th>Telephone</th>
+                  <th>Email</th>
+                  <th>Sexe</th>
+                  <th class="no-content">Actions</th>
+                </tr>
+              </tfoot>
+              {% endcomment %}
+            </table>
+          </div>
         </div>
+      </div>
+    </div>
+  </div>
+  <!--  END CONTENT AREA  -->
+</div>
+
+<div class="modal fade login-modal" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+
+      <div class="modal-header" id="loginModalLabel">
+        <h4 class="modal-title">Ajout Facture</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>
+      </div>
+      <div class="modal-body">
+        <form class="mt-0" method="POST" action="do_facture" >
+          {% csrf_token %}
+          <div class="form-group">
+            {% for cli in clients %} 
+            <input type="hidden" class="form-control mb-2" id="exampleInputEmail1" name="client_id" value="{{cli.id}}" >
+            {% endfor %} 
+          </div>
+          <div class="form-group">
+            <input type="text" class="form-control mb-2" name="designation" id="exampleInputEmail1" placeholder="Designation">
+          </div>
+          <div class="form-group">
+            <input type="date" class="form-control mb-2" name="date" id="exampleInputEmail1" placeholder="Date">
+          </div>
+          <div class="form-group">
+            <input type="number" name="titre_en_caract" class="form-control mb-2" id="exampleInputEmail1" placeholder="Titre en Caracts">
+          </div>
+          <div class="form-group">
+            <input type="number" name="poids_en_grammes"  class="form-control mb-2" id="exampleInputEmail1" placeholder="Poids en Gramme">
+          </div>
+
+          <div class="form-group">
+            <input type="number" name="prix_unitaire"  class="form-control mb-2" id="exampleInputEmail1" placeholder="Prix unitaire">
+          </div>
+          
+          <button type="submit" class="btn btn-primary mt-2 mb-2 btn-block">Ajouter</button>
+        </form>
+
+
+
+
+      </div>
 
     </div>
-
-</div>
-<!--  END CONTENT AREA  -->
+  </div>
 </div>
 <!-- END MAIN CONTAINER -->
+<script>
+  $('#yt-video-link').click(function () {
+      var src = 'https://www.youtube.com/embed/YE7VzlLtp-4';
+      $('#videoMedia1').modal('show');
+      $('<iframe>').attr({
+          'src': src,
+          'width': '560',
+          'height': '315',
+          'allow': 'encrypted-media'
+      }).css('border', '0').appendTo('#videoMedia1 .video-container');
+  });
+  $('#vimeo-video-link').click(function () {
+      var src = 'https://player.vimeo.com/video/1084537';
+      $('#videoMedia2').modal('show');
+      $('<iframe>').attr({
+          'src': src,
+          'width': '560',
+          'height': '315',
+          'allow': 'encrypted-media'
+      }).css('border', '0').appendTo('#videoMedia2 .video-container');
+  });
+  $('#videoMedia1 button, #videoMedia2 button').click(function () {
+      $('#videoMedia1 iframe, #videoMedia2 iframe').removeAttr('src');
+  });
+</script>    
 
 {% endblock main %}
-
-

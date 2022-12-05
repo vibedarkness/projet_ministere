@@ -45,7 +45,7 @@
                                         </button>
                                         <div class="dropdown-menu" aria-labelledby="dropdownMenuReference1">
                                             <a class="dropdown-item" href="/voir">voir</a>
-                                            <a class="dropdown-item" href="{% url 'modifier_client' cli.id %}">Modifier</a>
+                                            {% comment %} <a class="dropdown-item" href="{% url 'modifier_client' cli.id %}">Modifier</a> {% endcomment %}
                                             <a class="dropdown-item" href="{% url 'delete_client' cli.id %}" onclick="return confirm('Etes vous sure de vouloir supprimer ?')">Supprimer</a>
                                   
                                         </div>

@@ -31,7 +31,14 @@ def login(request):
 
 # @login_required(login_url="/")
 def voir(request):
-    return render(request, 'administrateur/voir.html')
+    return render(request, 'administrateur/voir_admin.html')
+
+
+
+def voir_facture(request):
+    return render(request, 'staff/facture.html')
+def voir_attestation(request):
+    return render(request, 'administrateur/attestation.html')
 
 def voir_staff(request):
     return render(request, 'staff/voir.html')
@@ -65,8 +72,6 @@ def nouveau_client(request):
 def add_staff(request):
     return render(request, 'administrateur/add_staff.html')
 
-def nouveau_facture(request):
-    return render(request, 'staff/add_facture.html')
 
 # def modifier_client(request):
 #     return render(request, 'administrateur/modifier_client.html')
@@ -125,40 +130,63 @@ def delete_client(request, client_id):
     return redirect(reverse('index'))
 
 
+def do_facture(request):
+    if request.method!="POST":
+            return HttpResponse("<h2>Method Not Allowed</h2>")
+    else:
+        designation=request.POST.get("designation")
+        date=request.POST.get("date")
+        poids_en_grammes=request.POST.get("poids_en_grammes")
+        titre_en_caract=request.POST.get("titre_en_caract")
+        prix_unitaire=request.POST.get("prix_unitaire")
+        client_id=request.POST.get("client_id")
+        
 
-def up_client(request, client_id):
-    clients = get_object_or_404(Client, id=client_id)
+        try:
+            facture=Facture(designation=designation,date=date,poids_en_grammes=poids_en_grammes,titre_en_caract=titre_en_caract,prix_unitaire=prix_unitaire,client_id=client_id)
+            facture.save()
+            messages.success(request,"Ajout avec Success")
+            return HttpResponseRedirect(reverse("index_staff"))
+        except Exception as e :
+            messages.error(request, "Pas d'ajout " + str(e))
+            print(e)
+            return HttpResponseRedirect(reverse("index_staff"))
 
-    # clients=Client.objects.all()
-    # form = CourseForm(request.POST or None, instance=instance)
-    # context = {
-    #     'form': form,
-    #     'course_id': course_id,
-    #     'page_title': 'Editer Classe'
-    # }
-    if request.method == 'POST':
 
-            prenom=request.POST.get("prenom")
-            nom=request.POST.get("nom")
-            telephone=request.POST.get("telephone")
-            adresse=request.POST.get("adresse")
-            email=request.POST.get("email")
-            sexe=request.POST.get("sexe")
-            try:
-                clients = Client.objects.get(id=client_id)
-                clients.prenom = prenom
-                clients.nom = nom
-                clients.telephone = telephone
-                clients.adresse = adresse
-                clients.email = email
-                clients.sexe = sexe
-                clients.save()
-                messages.success(request, "Mise a jour avec Success")
-            except:
-                messages.error(request, "Echec mise a jour")
 
-    return render(request, 'administrateur/modifier_client.html')
 
+# def up_client(request, client_id):
+#     clients = get_object_or_404(Client, id=client_id)
+
+#     # clients=Client.objects.all()
+#     # form = CourseForm(request.POST or None, instance=instance)
+#     # context = {
+#     #     'form': form,
+#     #     'course_id': course_id,
+#     #     'page_title': 'Editer Classe'
+#     # }
+#     if request.method == 'POST':
+
+#             prenom=request.POST.get("prenom")
+#             nom=request.POST.get("nom")
+#             telephone=request.POST.get("telephone")
+#             adresse=request.POST.get("adresse")
+#             email=request.POST.get("email")
+#             sexe=request.POST.get("sexe")
+#             try:
+#                 clients = Client.objects.get(id=client_id)
+#                 clients.prenom = prenom
+#                 clients.nom = nom
+#                 clients.telephone = telephone
+#                 clients.adresse = adresse
+#                 clients.email = email
+#                 clients.sexe = sexe
+#                 clients.save()
+#                 messages.success(request, "Mise a jour avec Success")
+#             except:
+#                 messages.error(request, "Echec mise a jour")
+
+#     return render(request, 'administrateur/modifier_client.html')
 
 
 def logout_user(request):
