@@ -30,18 +30,73 @@ def login(request):
 
 
 # @login_required(login_url="/")
-def voir(request):
-    return render(request, 'administrateur/voir_admin.html')
+def voir(request,client_id):
+    affiche_facture=Client.objects.get(id=client_id)
+    return render(request, 'administrateur/voir_admin.html',{'voir_staff':affiche_facture})
 
 
 
-def voir_facture(request):
-    return render(request, 'staff/facture.html')
+def voir_facture(request,client_id,facture_id):
+    affiche_cli=Client.objects.get(id=client_id)
+    affiche_facture=Facture.objects.get(id=facture_id)
+    context = {
+        'voir_staff': affiche_facture,
+        'voir_staff': affiche_cli
+    }
+    return render(request, 'staff/facture.html',context)
+
+
 def voir_attestation(request):
     return render(request, 'administrateur/attestation.html')
 
-def voir_staff(request):
-    return render(request, 'staff/voir.html')
+def voir_staff(request,client_id):
+    affiche_facture=Client.objects.get(id=client_id)
+    return render(request, 'staff/voir.html',{'voir_staff':affiche_facture})
+
+def ajouter_facture(request,client_id):
+    affiche_client=Client.objects.get(id=client_id)
+
+    if request.method=="GET":
+        return render(request, 'staff/add_facture.html', {'clients':affiche_client})
+    elif request.method=="POST":
+        designation=request.POST.get("designation")
+        date=request.POST.get("date")
+        poids_en_grammes=request.POST.get("poids_en_grammes")
+        titre_en_caract=request.POST.get("titre_en_caract")
+        prix_unitaire=request.POST.get("prix_unitaire")
+        clients_id=request.POST.get("client_id")
+        try:
+            facture=Facture(designation=designation,date=date,poids_en_grammes=poids_en_grammes,titre_en_caract=titre_en_caract,prix_unitaire=prix_unitaire,client_id=clients_id)
+            facture.save()
+            messages.success(request,"Ajout avec Success")
+            return HttpResponseRedirect(reverse("index_staff"))
+        except Exception as e :
+            messages.error(request, "Pas d'ajout " + str(e))
+            print(e)
+            return HttpResponseRedirect(reverse("index_staff"))
+
+
+def ajouter_ba(request,client_id):
+    affiche_client=Client.objects.get(id=client_id)
+
+    if request.method=="GET":
+        return render(request, 'staff/add_ba.html', {'clients':affiche_client})
+    elif request.method=="POST":
+        numero_ordre=request.POST.get("numero_ordre")
+        parametre=request.POST.get("parametre")
+        date=request.POST.get("date")
+        type_echantillon=request.POST.get("type_echantillon")
+        clients_id=request.POST.get("client_id")
+        try:
+            ba=BordereauAdministratif(numero_ordre=numero_ordre,date=date,parametre=parametre,type_echantillon=type_echantillon,client_id=clients_id)
+            ba.save()
+            messages.success(request,"Ajout avec Success")
+            return HttpResponseRedirect(reverse("index_staff"))
+        except Exception as e :
+            messages.error(request, "Pas d'ajout " + str(e))
+            print(e)
+            return HttpResponseRedirect(reverse("index_staff"))
+
 
 
 
@@ -130,27 +185,27 @@ def delete_client(request, client_id):
     return redirect(reverse('index'))
 
 
-def do_facture(request):
-    if request.method!="POST":
-            return HttpResponse("<h2>Method Not Allowed</h2>")
-    else:
-        designation=request.POST.get("designation")
-        date=request.POST.get("date")
-        poids_en_grammes=request.POST.get("poids_en_grammes")
-        titre_en_caract=request.POST.get("titre_en_caract")
-        prix_unitaire=request.POST.get("prix_unitaire")
-        client_id=request.POST.get("client_id")
+# def do_facture(request):
+#     if request.method!="POST":
+#             return HttpResponse("<h2>Method Not Allowed</h2>")
+#     else:
+#         designation=request.POST.get("designation")
+#         date=request.POST.get("date")
+#         poids_en_grammes=request.POST.get("poids_en_grammes")
+#         titre_en_caract=request.POST.get("titre_en_caract")
+#         prix_unitaire=request.POST.get("prix_unitaire")
+#         client_id=request.POST.get("client_id")
         
 
-        try:
-            facture=Facture(designation=designation,date=date,poids_en_grammes=poids_en_grammes,titre_en_caract=titre_en_caract,prix_unitaire=prix_unitaire,client_id=client_id)
-            facture.save()
-            messages.success(request,"Ajout avec Success")
-            return HttpResponseRedirect(reverse("index_staff"))
-        except Exception as e :
-            messages.error(request, "Pas d'ajout " + str(e))
-            print(e)
-            return HttpResponseRedirect(reverse("index_staff"))
+#         try:
+#             facture=Facture(designation=designation,date=date,poids_en_grammes=poids_en_grammes,titre_en_caract=titre_en_caract,prix_unitaire=prix_unitaire,client_id=client_id)
+#             facture.save()
+#             messages.success(request,"Ajout avec Success")
+#             return HttpResponseRedirect(reverse("index_staff"))
+#         except Exception as e :
+#             messages.error(request, "Pas d'ajout " + str(e))
+#             print(e)
+#             return HttpResponseRedirect(reverse("index_staff"))
 
 
 

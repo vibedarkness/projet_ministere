@@ -34,7 +34,7 @@ class Client(models.Model):
 
 
 class Facture(models.Model):
-    client=models.ForeignKey(Client, on_delete=models.CASCADE)
+    client=models.ForeignKey(Client, on_delete=models.CASCADE,related_name="voir_staff")
     date=models.DateField(auto_now_add=True)
     designation=models.CharField(max_length=200)
     poids_en_grammes=models.IntegerField()
@@ -47,12 +47,12 @@ class Facture(models.Model):
 #     client=models.ForeignKey(Client, on_delete=models.CASCADE)
     
 class BordereauAdministratif(models.Model):
-    client=models.ForeignKey(Client, on_delete=models.CASCADE)
+    client=models.ForeignKey(Client, on_delete=models.CASCADE,related_name="voir")
     parametre=models.CharField(max_length=200)
     date=models.DateField(auto_now_add=True)
     numero_ordre=models.IntegerField()
     type_echantillon=models.CharField(max_length=500)
-    
+
 
 
 

@@ -70,8 +70,11 @@
                         class="dropdown-menu"
                         aria-labelledby="dropdownMenuReference1"
                       >
-                        <a class="dropdown-item" href="/voir_staff">voir</a>
-                        <a class="dropdown-item" class="btn btn-dark mb-2 mr-2" data-toggle="modal" data-target="#loginModal" value="{{cli.id}}" href="#">Ajouter</a>
+                        <a class="dropdown-item" href="{% url 'ajouter_facture' cli.id %}">Ajouter facture</a>
+                        <a class="dropdown-item" href="{% url 'ajouter_ba' cli.id %}">Ajouter BA</a>
+                        <a class="dropdown-item" href="{% url 'voir_staff' cli.id %}">voir facture</a>
+                        <a class="dropdown-item" href="/voir_staff">voir BA</a>
+                        
 
                         {% comment %} <a class="dropdown-item" href="#">Modifier</a>
                         <a class="dropdown-item" href="#">Supprimer</a> {% endcomment %}
@@ -103,7 +106,7 @@
   </div>
   <!--  END CONTENT AREA  -->
 </div>
-
+{% comment %} 
 <div class="modal fade login-modal" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -147,9 +150,9 @@
 
     </div>
   </div>
-</div>
+</div> {% endcomment %}
 <!-- END MAIN CONTAINER -->
-<script>
+{% comment %} <script>
   $('#yt-video-link').click(function () {
       var src = 'https://www.youtube.com/embed/YE7VzlLtp-4';
       $('#videoMedia1').modal('show');
@@ -173,6 +176,6 @@
   $('#videoMedia1 button, #videoMedia2 button').click(function () {
       $('#videoMedia1 iframe, #videoMedia2 iframe').removeAttr('src');
   });
-</script>    
+</script>     {% endcomment %}
 
 {% endblock main %}

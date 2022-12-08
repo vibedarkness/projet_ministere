@@ -1,0 +1,73 @@
+{% extends 'staff/base.html' %}
+
+{% block main %}
+<div id="content" class="main-content" >
+    <div class="container" style="margin-left:220px;">
+        <div class="container">
+<div class="row">
+    <div id="flRegistrationForm" class="col-lg-12 layout-spacing">
+        <div class="statbox widget box box-shadow">
+            <div class="widget-header">                                
+                <div class="row">
+                    <div style="text-align:center;" class="col-xl-12 col-md-12 col-sm-12 col-12">
+                        <h4>Ajouter Bordereau pour {{clients.prenom}}</h4>
+                    </div>                                                                        
+                </div>
+            </div>
+            <div class="widget-content widget-content-area">
+                <form method="POST" >
+                    {% csrf_token %}
+                    <div class="form-group mb-4">
+                        <input type="hidden" class="form-control" value="{{clients.id}}" name="client_id" id="rPassword">
+                    </div>
+                    <div class="form-group mb-4">
+                        <input type="number" class="form-control" name="numero_ordre" id="rPassword" placeholder="Numero Ordre *">
+                    </div> 
+                    <div class="form-group mb-4">
+                        <input type="date" class="form-control" name="date" id="rPassword" placeholder="Date *">
+                    </div>
+
+                    <div class="form-group mb-4">
+                        <input type="text" class="form-control" name="parametre" id="rEmail" placeholder="Parametre *">
+                    </div>
+                    <div class="form-group mb-4">
+                        <input type="text" class="form-control" name="type_echantillon" id="rEmail" placeholder="Type Echantilon *">
+                    </div>
+
+                    {% comment %} <div class="form-group mb-4">
+                        <select class="form-control  basic" name="sexe">
+                            <option value="Masculin" selected="selected">Masculin</option>
+                            <option value="Feminin">Feminin</option>
+                        </select>
+                    </div> {% endcomment %}
+                   <div style="display: inline-block;"> 
+                    <button style="display: inline-block;" type="submit" class="btn btn-primary mt-3" style="margin-left:250px;">Ajouter</button>
+                    <a style="display: inline-block;margin-left:130px;" href="/index_staff" class="btn btn-danger mt-3" >Annuler</a>
+                </div>
+                    <div class="row">
+                        {% if messages %}
+                       <div class="col-12">
+                          {% for message in messages %}
+                          {% if message.tags == 'error' %}
+                          <div class="alert alert-danger" style="margin-top:10px">{{ message }}</div>
+                          {% endif %}
+                          {% endfor %}
+                        </div>
+                        {% endif %}
+                      </div>
+                </form>
+
+                <div class="code-section-container">
+                            
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+    
+{% endblock main %}
+
+
