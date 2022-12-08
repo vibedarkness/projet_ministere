@@ -10,6 +10,8 @@ from django.shortcuts import redirect,get_object_or_404
 from Main.EmailBackend import EmailBackend
 from Main.models import Client
 from .models import *
+from num2words import num2words
+
 
 # Create your views here.
 
@@ -39,6 +41,7 @@ def voir(request,client_id):
 def voir_facture(request,client_id,facture_id):
     affiche_cli=Client.objects.get(id=client_id)
     affiche_facture=Facture.objects.get(id=facture_id)
+    # numwords=num2words(line_total, lang='fr')
     context = {
         'voir_staff': affiche_facture,
         'voir_staff': affiche_cli

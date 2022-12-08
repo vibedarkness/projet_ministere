@@ -40,6 +40,11 @@ class Facture(models.Model):
     poids_en_grammes=models.IntegerField()
     titre_en_caract=models.IntegerField()
     prix_unitaire=models.IntegerField(default=40)
+    def line_total(self):
+         return self.poids_en_grammes * self.prix_unitaire
+
+        
+
     # prix_total=models.IntegerField()
 
 # class Attestation(models.Model):
