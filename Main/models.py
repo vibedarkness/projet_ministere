@@ -1,6 +1,7 @@
 from django.db import models
 
 from django.contrib.auth.models import AbstractUser
+from num2words import num2words
 
 
 class CustomUser(AbstractUser):
@@ -42,7 +43,9 @@ class Facture(models.Model):
     prix_unitaire=models.IntegerField(default=40)
     def line_total(self):
          return self.poids_en_grammes * self.prix_unitaire
-
+    def numwords(self):
+        line_num=self.poids_en_grammes * self.prix_unitaire
+        return num2words(line_num, lang='fr')
         
 
     # prix_total=models.IntegerField()

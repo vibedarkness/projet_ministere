@@ -10,7 +10,7 @@ from django.shortcuts import redirect,get_object_or_404
 from Main.EmailBackend import EmailBackend
 from Main.models import Client
 from .models import *
-from num2words import num2words
+
 
 
 # Create your views here.
@@ -43,18 +43,42 @@ def voir_facture(request,client_id,facture_id):
     affiche_facture=Facture.objects.get(id=facture_id)
     # numwords=num2words(line_total, lang='fr')
     context = {
+        
         'voir_staff': affiche_facture,
         'voir_staff': affiche_cli
+        
     }
     return render(request, 'staff/facture.html',context)
 
+def ba(request,client_id,ba_id):
+    affiche_cli=Client.objects.get(id=client_id)
+    affiche_ba=BordereauAdministratif.objects.get(id=ba_id)
+    # numwords=num2words(line_total, lang='fr')
+    context = {
+        'voir': affiche_ba,
+        'voir': affiche_cli
+    }
+    return render(request, 'staff/ba.html',context)
 
-def voir_attestation(request):
-    return render(request, 'administrateur/attestation.html')
+
+def voir_attestation(request,client_id,facture_id):
+    affiche_cli=Client.objects.get(id=client_id)
+    affiche_attest=Facture.objects.get(id=facture_id)
+    # numwords=num2words(line_total, lang='fr')
+    context = {
+        'voir_staff': affiche_attest,
+        'voir_staff': affiche_cli
+    }
+    return render(request, 'administrateur/attestation.html',context)
+
 
 def voir_staff(request,client_id):
     affiche_facture=Client.objects.get(id=client_id)
     return render(request, 'staff/voir.html',{'voir_staff':affiche_facture})
+
+def voir_ba(request, client_id):
+    affiche_ba=Client.objects.get(id=client_id)
+    return render(request, "staff/voir_ba.html",{'voir':affiche_ba})
 
 def ajouter_facture(request,client_id):
     affiche_client=Client.objects.get(id=client_id)

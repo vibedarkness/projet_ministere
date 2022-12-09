@@ -16,12 +16,13 @@
 </head>
 <body>
     <div class="wrapper">
+        {% for voir_staff in voir_staff.voir_staff.all %}
 
         <div class="inner" style="background-color: rgb(224, 212, 212);  width: 100%; height: 1000px;">
             <div style="margin-left: 70px;">
                 <br>
                 <h4>REPUBLIQUE DU SENEGAL &nbsp; N° &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  /MMG/DGéol/GLA/</h4>
-                <p style="margin-left: 40px;">Un Peuple Un But Une Fois &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  Dakar, le  /  /  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**********</p>
+                <p style="margin-left: 40px;">Un Peuple Un But Une Fois &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  Dakar, le {{voir_staff.date}}  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**********</p>
                 
             </div>
             <div style="margin-left: 60px;">
@@ -53,7 +54,7 @@
             </div>
             <br>
             <div style="margin-left: 100px;">
-            <h7 style="text-align: center;"> Je soussigné <strong> MADAME AMINATA DIOUF CISS,</strong> chef du <strong>Groupe des Laboratoires <br> d'analyses (GLA) du Ministéres des Mines et de la Geologie </strong> atteste avoir reçu  de <br> <strong>Monsieur(Madame)......................</strong> ............... lingots en or d'un poids total <br> de ......... Grammes pour contrôle. <br>Aprés expertise des lingots il a été trouvé qu'ils sont en or et titres .........caracts. <br>En foi de quoi cettebattestation lui est délivrée pour servir et valoir ce que de droit</h7>
+            <h7 style="text-align: center;"> Je soussigné <strong> MADAME AMINATA DIOUF CISS,</strong> chef du <strong>Groupe des Laboratoires <br> d'analyses (GLA) du Ministéres des Mines et de la Geologie </strong> atteste avoir reçu  de <br> <strong>Monsieur(Madame)......................</strong> <strong>{{voir_staff.designation}}</strong> lingots en or d'un poids total <br> de <strong>{{voir_staff.poids_en_grammes}} </strong>Grammes pour contrôle. <br>Aprés expertise des lingots il a été trouvé qu'ils sont en or et titres <strong>{{voir_staff.titre_en_caract}}</strong> caracts. <br>En foi de quoi cettebattestation lui est délivrée pour servir et valoir ce que de droit</h7>
 
             </div>
             <br>
@@ -66,7 +67,7 @@
             <br>
             <hr style="border: 1px solid black; width:90%; margin-left: 40px;">
             <p style="text-align: center;" > IST Avenue Cheikh Anta Diop *ex batiment BRGM 2éme étage tel: 33 868 69 94 *Dakar-senegal <br><br> <strong> EmaiL GLA</strong> <u>:Aminata.diouf@minesgeologie.gouv.sn <br> gla@minesgeologie.gouv.sn </u></p>
-
+            {% endfor %}
     </div>
     <div>
           <button class="btn btn-success" onclick="window.print();" id="print-btn"> Imprimer </button>  

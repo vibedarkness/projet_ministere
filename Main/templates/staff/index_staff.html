@@ -19,6 +19,7 @@
             >
               <thead>
                 <tr>
+                  <th>ID</th>
                   <th>Prenom</th>
                   <th>Nom</th>
                   <th>Adresse</th>
@@ -31,6 +32,7 @@
               <tbody>
                 {% for cli in clients %}
                 <tr>
+                  <td style="color: white">{{cli.id }}</td>
                   <td style="color: white">{{cli.prenom }}</td>
                   <td style="color: white">{{cli.nom }}</td>
                   <td style="color: white">{{ cli.adresse }}</td>
@@ -73,7 +75,7 @@
                         <a class="dropdown-item" href="{% url 'ajouter_facture' cli.id %}">Ajouter facture</a>
                         <a class="dropdown-item" href="{% url 'ajouter_ba' cli.id %}">Ajouter BA</a>
                         <a class="dropdown-item" href="{% url 'voir_staff' cli.id %}">voir facture</a>
-                        <a class="dropdown-item" href="/voir_staff">voir BA</a>
+                        <a class="dropdown-item" href="{% url 'voir_ba' cli.id %}">voir BA</a>
                         
 
                         {% comment %} <a class="dropdown-item" href="#">Modifier</a>

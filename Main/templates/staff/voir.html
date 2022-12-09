@@ -1,7 +1,7 @@
 {% extends 'staff/base.html' %} 
 {% block main %} 
 {% for vibe in voir_staff.voir_staff.all %}
-<div id="content" class="main-content">
+<div id="content" class="main-content" style="margin-left: 350px;">
  
     <div id="card_7" class="col-lg-12 layout-spacing">
       <div class="statbox widget box box-shadow">
@@ -17,5 +17,9 @@
       </div>
     </div>
 </div>
+{% empty %}
+
+<h3 style="margin-top: 400px; text-align: center;">Il n'existe aucune Facture pour ce client </h3>
+
 {% endfor %} 
 {% endblock main %}
