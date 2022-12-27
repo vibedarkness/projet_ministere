@@ -40,7 +40,7 @@ def acceuil(request):
 
 def liste_facture(request):
     facts=Facture.objects.all()
-    return render(request, 'staff/liste_facture.html',{"facts":facts})
+    return render(request, 'administrateur/liste_facture.html',{"facts":facts})
 
 
 

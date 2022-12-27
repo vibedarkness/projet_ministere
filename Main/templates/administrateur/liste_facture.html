@@ -19,6 +19,7 @@
                         <thead>
                           
                             <tr>
+                                <th>ID</th>
                                 <th>Designation</th>
                                 <th>Poids en Gramme</th>
                                 <th>Titre en Caract</th>
@@ -29,30 +30,19 @@
                         <tbody>
                             {% for fact in facts %} 
                             <tr>
+                                <td style="color:white;">{{fact.id }}</td>  
                                 <td style="color:white;">{{fact.designation }}</td>    
-                                <td style="color:white;">{{cli.poids_en_grammes }}</td>
-                                <td style="color:white;">{{ cli.titre_en_caract }}</td>
-                                <td style="color:white;">{{ cli.prix_unitaire }}</td>
-                                <td style="color:white;">{{ cli.date }}</td>
-                                # <td>
-                                #     <div class="btn-group">
-                                #         <button type="button" class="btn btn-dark btn-sm">actions</button>
-                                #         <button type="button" class="btn btn-dark btn-sm dropdown-toggle dropdown-toggle-split" id="dropdownMenuReference1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-reference="parent">
-                                #             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down"><polyline points="6 9 12 15 18 9"></polyline></svg>
-                                #         </button>
-                                #         <div class="dropdown-menu" aria-labelledby="dropdownMenuReference1">
-                                #             <a class="dropdown-item" href="{% url 'voir_admin' cli.id %}">voir</a>
-                                #             {% comment %} <a class="dropdown-item" href="{% url 'modifier_client' cli.id %}">Modifier</a> {% endcomment %}
-                                #             <a class="dropdown-item" href="{% url 'delete_client' cli.id %}" onclick="return confirm('Etes vous sure de vouloir supprimer ?')">Supprimer</a>
-                                  
-                                #         </div>
-                                #         </div>
-                                # </td> 
+                                <td style="color:white;">{{fact.poids_en_grammes }}</td>
+                                <td style="color:white;">{{ fact.titre_en_caract }}</td>
+                                <td style="color:white;">{{ fact.prix_unitaire }}</td>
+                                <td style="color:white;">{{ fact.date }}</td>
+
                             </tr>
                              {% endfor %} 
                         </tbody>
                         {% comment %} <tfoot>
                             <tr>
+                                <th>ID</th>
                                 <th>Designation</th>
                                 <th>Poids en Gramme</th>
                                 <th>Titre en Caract</th>
