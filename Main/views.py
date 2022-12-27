@@ -25,6 +25,23 @@ def index_staff(request):
     clients=Client.objects.all()
     return render(request, 'staff/index_staff.html',{"clients":clients})
 
+def acceuil(request):
+    total_client = Client.objects.all().count()
+    total_facture = Facture.objects.all().count()
+    context = {
+        
+        'total_client': total_client,
+        'total_facture': total_facture
+        
+    }
+    return render(request, 'administrateur/acceuil.html',context)
+
+
+
+def liste_facture(request):
+    facts=Facture.objects.all()
+    return render(request, 'staff/liste_facture.html',{"facts":facts})
+
 
 
 def login(request):
@@ -87,13 +104,15 @@ def ajouter_facture(request,client_id):
         return render(request, 'staff/add_facture.html', {'clients':affiche_client})
     elif request.method=="POST":
         designation=request.POST.get("designation")
-        date=request.POST.get("date")
         poids_en_grammes=request.POST.get("poids_en_grammes")
         titre_en_caract=request.POST.get("titre_en_caract")
         prix_unitaire=request.POST.get("prix_unitaire")
+        # barre0=request.POST.get("barre0")
+        # barre1=request.POST.get("barre1")
+        # barre2=request.POST.get("barre2")
         clients_id=request.POST.get("client_id")
         try:
-            facture=Facture(designation=designation,date=date,poids_en_grammes=poids_en_grammes,titre_en_caract=titre_en_caract,prix_unitaire=prix_unitaire,client_id=clients_id)
+            facture=Facture(designation=designation,poids_en_grammes=poids_en_grammes,titre_en_caract=titre_en_caract,prix_unitaire=prix_unitaire,client_id=clients_id)
             facture.save()
             messages.success(request,"Ajout avec Success")
             return HttpResponseRedirect(reverse("index_staff"))
@@ -111,11 +130,10 @@ def ajouter_ba(request,client_id):
     elif request.method=="POST":
         numero_ordre=request.POST.get("numero_ordre")
         parametre=request.POST.get("parametre")
-        date=request.POST.get("date")
         type_echantillon=request.POST.get("type_echantillon")
         clients_id=request.POST.get("client_id")
         try:
-            ba=BordereauAdministratif(numero_ordre=numero_ordre,date=date,parametre=parametre,type_echantillon=type_echantillon,client_id=clients_id)
+            ba=BordereauAdministratif(numero_ordre=numero_ordre,parametre=parametre,type_echantillon=type_echantillon,client_id=clients_id)
             ba.save()
             messages.success(request,"Ajout avec Success")
             return HttpResponseRedirect(reverse("index_staff"))
@@ -135,7 +153,7 @@ def do_login(request):
         if user!=None:
             login(request)
             if user.user_type=="1":
-                return HttpResponseRedirect(reverse("index"))
+                return HttpResponseRedirect(reverse("acceuil"))
             
             elif user.user_type=="2":
                 return HttpResponseRedirect(reverse("index_staff"))

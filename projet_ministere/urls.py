@@ -16,6 +16,8 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from Main import views
+from projet_ministere import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     # path('admin/', admin.site.urls),
@@ -23,6 +25,8 @@ urlpatterns = [
     path('do_login', views.do_login, name="do_login"),
     path('index', views.index,name="index"),
     path('index_staff', views.index_staff,name="index_staff"),
+    path('acceuil', views.acceuil,name="acceuil"),
+    path('liste_facture', views.liste_facture,name="liste_facture"),
     path('client', views.nouveau_client,name="client"),
     path('client/add_facture/<int:client_id>', views.ajouter_facture,name="ajouter_facture"),
     path('client/add_ba/<int:client_id>', views.ajouter_ba,name="ajouter_ba"),
@@ -41,4 +45,4 @@ urlpatterns = [
     # path("client/update_client/<int:client_id>", views.modifier_client, name='modifier_client'),
     # path("client/update_client/<int:client_id>", views.up_client, name='modifier_client'),
     # path("client/ajout_facture/<int:client_id>", views.nouveau_facture, name='ajout_facture'),
-]
+]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) 

@@ -1,7 +1,12 @@
+from io import BytesIO
 from django.db import models
 
 from django.contrib.auth.models import AbstractUser
 from num2words import num2words
+import barcode
+from barcode.writer import ImageWriter
+from django.core.files import File
+
 
 
 class CustomUser(AbstractUser):
@@ -40,7 +45,20 @@ class Facture(models.Model):
     designation=models.CharField(max_length=200)
     poids_en_grammes=models.IntegerField()
     titre_en_caract=models.IntegerField()
+    # image=models.ImageField(upload_to='image/')
     prix_unitaire=models.IntegerField(default=40)
+    # barre0=models.CharField(max_length=1,null=True)
+    # barre1=models.CharField(max_length=6,null=True)
+    # barre2=models.CharField(max_length=5,null=True)
+
+    # def save(self,*args, **kwargs):
+    #     EAN=barcode.get_barcode_class('ean13')
+    #     ean=EAN(f'{self.barre0}{self.barre1}{self.barre2}', writer=ImageWriter(format='PNG'))
+    #     buffer=BytesIO()
+    #     ean.writer(buffer)
+    #     self.barcode.save("pngtree-barcode-vector-png-image_4889246.PNG", File(buffer), save=False)
+    #     return super().save(*args, **kwargs)
+
     def line_total(self):
          return self.poids_en_grammes * self.prix_unitaire
     def numwords(self):
@@ -56,10 +74,12 @@ class Facture(models.Model):
     
 class BordereauAdministratif(models.Model):
     client=models.ForeignKey(Client, on_delete=models.CASCADE,related_name="voir")
+    admin=models.OneToOneField(CustomUser,on_delete=models.CASCADE)
     parametre=models.CharField(max_length=200)
     date=models.DateField(auto_now_add=True)
     numero_ordre=models.IntegerField()
     type_echantillon=models.CharField(max_length=500)
+
 
 
 

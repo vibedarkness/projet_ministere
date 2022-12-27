@@ -1,0 +1,79 @@
+{% extends 'administrateur/base.html' %}
+
+{% block main %}
+<div class="main-container" id="container">
+<div id="content" class="main-content">
+    <div class="layout-px-spacing">
+        
+        <div class="row layout-top-spacing" id="cancel-row">
+            
+            <h3 style="margin-left:300px;"><u>LISTE DES CLIENTS</u></h3>
+            
+        
+            <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
+                
+                <div class="widget-content widget-content-area br-6" style="margin-right:150px;">
+                    
+                    <table id="zero-config" class="table dt-table-hover" style="width:100%">
+                        
+                        <thead>
+                          
+                            <tr>
+                                <th>Designation</th>
+                                <th>Poids en Gramme</th>
+                                <th>Titre en Caract</th>
+                                <th>Prix unitaire</th>
+                                <th>Date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for fact in facts %} 
+                            <tr>
+                                <td style="color:white;">{{fact.designation }}</td>    
+                                <td style="color:white;">{{cli.poids_en_grammes }}</td>
+                                <td style="color:white;">{{ cli.titre_en_caract }}</td>
+                                <td style="color:white;">{{ cli.prix_unitaire }}</td>
+                                <td style="color:white;">{{ cli.date }}</td>
+                                # <td>
+                                #     <div class="btn-group">
+                                #         <button type="button" class="btn btn-dark btn-sm">actions</button>
+                                #         <button type="button" class="btn btn-dark btn-sm dropdown-toggle dropdown-toggle-split" id="dropdownMenuReference1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-reference="parent">
+                                #             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                                #         </button>
+                                #         <div class="dropdown-menu" aria-labelledby="dropdownMenuReference1">
+                                #             <a class="dropdown-item" href="{% url 'voir_admin' cli.id %}">voir</a>
+                                #             {% comment %} <a class="dropdown-item" href="{% url 'modifier_client' cli.id %}">Modifier</a> {% endcomment %}
+                                #             <a class="dropdown-item" href="{% url 'delete_client' cli.id %}" onclick="return confirm('Etes vous sure de vouloir supprimer ?')">Supprimer</a>
+                                  
+                                #         </div>
+                                #         </div>
+                                # </td> 
+                            </tr>
+                             {% endfor %} 
+                        </tbody>
+                        {% comment %} <tfoot>
+                            <tr>
+                                <th>Designation</th>
+                                <th>Poids en Gramme</th>
+                                <th>Titre en Caract</th>
+                                <th>Prix unitaire</th>
+                                <th>Date</th>
+
+                            </tr>
+                        </tfoot> {% endcomment %}
+                    </table>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+<!--  END CONTENT AREA  -->
+</div>
+<!-- END MAIN CONTAINER -->
+
+{% endblock main %}
+
+

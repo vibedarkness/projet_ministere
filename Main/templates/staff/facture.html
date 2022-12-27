@@ -90,8 +90,12 @@
             <br>
             <hr style="border: 1px solid black; width:90%; margin-left: 40px;">
             <p style="text-align: center;" > IST Avenue Cheikh Anta Diop *ex batiment BRGM 2éme étage tel: 33 868 69 94 *Dakar-senegal <br><br> <strong> EmaiL GLA</strong> <u>:Aminata.diouf@minesgeologie.gouv.sn <br> gla@minesgeologie.gouv.sn </u></p>
-{% endfor %}
+
     </div>
+    {% comment %} <div style="height:20px;">
+        <img src="{{ MEDIA_URL }}{{ voir_staff.image }}" alt="product" height="50px;">
+    </div> {% endcomment %}
+    {% endfor %}
     
     <div>
           <button class="btn btn-success" onclick="window.print();" id="print-btn"> Imprimer </button>  
