@@ -10,6 +10,7 @@ from django.shortcuts import redirect,get_object_or_404
 from Main.EmailBackend import EmailBackend
 from Main.models import Client
 from .models import *
+from django.db.models import Sum
 
 
 
@@ -28,10 +29,22 @@ def index_staff(request):
 def acceuil(request):
     total_client = Client.objects.all().count()
     total_facture = Facture.objects.all().count()
+    labels=[]
+    data=[]
+    queryset = Facture.objects.values('client__prenom').annotate(client_poids_en_grammes=Sum('poids_en_grammes')).order_by('-client_poids_en_grammes')
+    # queryset=Facture.objects.order_by('prix_unitaire')[:5]
+    for facture in queryset:
+        labels.append(facture['client__prenom'])
+        data.append(facture['client_poids_en_grammes'])
+        
+        # labels.append(facture.designation)
+        # data.append(facture.prix_unitaire)
     context = {
         
         'total_client': total_client,
-        'total_facture': total_facture
+        'total_facture': total_facture,
+        'labels':labels,
+        'data':data
         
     }
     return render(request, 'administrateur/acceuil.html',context)
@@ -99,6 +112,7 @@ def voir_ba(request, client_id):
 
 def ajouter_facture(request,client_id):
     affiche_client=Client.objects.get(id=client_id)
+    # user = CustomUser.objects.get(id=request.user.id)
 
     if request.method=="GET":
         return render(request, 'staff/add_facture.html', {'clients':affiche_client})
@@ -112,7 +126,7 @@ def ajouter_facture(request,client_id):
         # barre2=request.POST.get("barre2")
         clients_id=request.POST.get("client_id")
         try:
-            facture=Facture(designation=designation,poids_en_grammes=poids_en_grammes,titre_en_caract=titre_en_caract,prix_unitaire=prix_unitaire,client_id=clients_id)
+            facture=Facture(designation=designation,poids_en_grammes=poids_en_grammes,titre_en_caract=titre_en_caract,prix_unitaire=prix_unitaire,client_id=clients_id,)
             facture.save()
             messages.success(request,"Ajout avec Success")
             return HttpResponseRedirect(reverse("index_staff"))

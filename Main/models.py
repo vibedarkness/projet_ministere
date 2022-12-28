@@ -45,6 +45,7 @@ class Facture(models.Model):
     designation=models.CharField(max_length=200)
     poids_en_grammes=models.IntegerField()
     titre_en_caract=models.IntegerField()
+    # user=models.OneToOneField(CustomUser,on_delete=models.CASCADE,default=1)
     # image=models.ImageField(upload_to='image/')
     prix_unitaire=models.IntegerField(default=40)
     # barre0=models.CharField(max_length=1,null=True)
