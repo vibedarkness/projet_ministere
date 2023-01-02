@@ -12,13 +12,14 @@
         
             <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
                 
-                <div class="widget-content widget-content-area br-6" style="margin-right:150px;">
+                <div class="widget-content widget-content-area br-6" style="margin-right:80px; margin-left:-90px;">
                     
-                    <table id="zero-config" class="table dt-table-hover" style="width:100%">
+                    <table id="zero-config" class="table dt-table-hover" style="width:100%;background-color: blanchedalmond;">
                         
                         <thead>
                           
                             <tr>
+                                <th>ID</th>
                                 <th>Prenom</th>
                                 <th>Nom</th>
                                 <th>Adresse</th>
@@ -31,12 +32,13 @@
                         <tbody>
                             {% for cli in clients %} 
                             <tr>
-                                <td style="color:white;">{{cli.prenom }}</td>    
-                                <td style="color:white;">{{cli.nom }}</td>
-                                <td style="color:white;">{{ cli.adresse }}</td>
-                                <td style="color:white;">{{ cli.telephone }}</td>
-                                <td style="color:white;">{{ cli.email }}</td>
-                                <td style="color:white;">{{ cli.sexe }}</td>
+                            <td style="color: black"> <strong>{{cli.id }}</strong></td>
+                            <td style="color: black"><strong>{{cli.prenom }}</strong></td>
+                            <td style="color: black"><strong>{{cli.nom }}</strong></td>
+                            <td style="color: black"><strong>{{ cli.adresse }}</strong></td>
+                            <td style="color: black"><strong>{{ cli.telephone }}</strong></td>
+                            <td style="color: black"><strong>{{ cli.email }}</strong></td>
+                            <td style="color: black"><strong>{{ cli.sexe }}</strong></td>
                                 <td>
                                     <div class="btn-group">
                                         <button type="button" class="btn btn-dark btn-sm">actions</button>

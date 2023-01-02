@@ -61,7 +61,7 @@ def login(request):
     return render(request, 'administrateur/login.html')
 
 
-# @login_required(login_url="/")
+# @login_required(login_url="/") 
 def voir(request,client_id):
     affiche_facture=Client.objects.get(id=client_id)
     return render(request, 'administrateur/voir_admin.html',{'voir_staff':affiche_facture})

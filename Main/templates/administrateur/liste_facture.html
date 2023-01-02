@@ -14,7 +14,7 @@
                 
                 <div class="widget-content widget-content-area br-6" style="margin-right:150px;">
                     
-                    <table id="zero-config" class="table dt-table-hover" style="width:100%">
+                    <table id="zero-config" class="table dt-table-hover" style="width:100%;background-color: blanchedalmond;">
                         
                         <thead>
                           
@@ -30,12 +30,12 @@
                         <tbody>
                             {% for fact in facts %} 
                             <tr>
-                                <td style="color:white;">{{fact.id }}</td>  
-                                <td style="color:white;">{{fact.designation }}</td>    
-                                <td style="color:white;">{{fact.poids_en_grammes }}</td>
-                                <td style="color:white;">{{ fact.titre_en_caract }}</td>
-                                <td style="color:white;">{{ fact.prix_unitaire }}</td>
-                                <td style="color:white;">{{ fact.date }}</td>
+                                <td style="color:black;"><strong>{{fact.id }}</strong></td>  
+                                <td style="color:black;"><strong>{{fact.designation }}</strong></td>    
+                                <td style="color:black;"><strong>{{fact.poids_en_grammes }}</strong></td>
+                                <td style="color:black;"><strong>{{ fact.titre_en_caract }}</strong></td>
+                                <td style="color:black;"><strong>{{ fact.prix_unitaire }}</strong></td>
+                                <td style="color:black;"><strong>{{ fact.date }}</strong></td>
 
                             </tr>
                              {% endfor %} 

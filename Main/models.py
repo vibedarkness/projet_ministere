@@ -3,9 +3,10 @@ from django.db import models
 
 from django.contrib.auth.models import AbstractUser
 from num2words import num2words
-import barcode
-from barcode.writer import ImageWriter
+import qrcode
+# from barcode.writer import ImageWriter
 from django.core.files import File
+from PIL import Image, ImageDraw
 
 
 
@@ -46,14 +47,23 @@ class Facture(models.Model):
     poids_en_grammes=models.IntegerField()
     titre_en_caract=models.IntegerField()
     # user=models.OneToOneField(CustomUser,on_delete=models.CASCADE,default=1)
-    # image=models.ImageField(upload_to='image/')
+    image=models.ImageField(upload_to='qr_codes', blank=True)
     prix_unitaire=models.IntegerField(default=40)
     # barre0=models.CharField(max_length=1,null=True)
     # barre1=models.CharField(max_length=6,null=True)
     # barre2=models.CharField(max_length=5,null=True)
 
-    # def save(self,*args, **kwargs):
-    #     EAN=barcode.get_barcode_class('ean13')
+    def save(self,*args, **kwargs):
+        qrcode_image=qrcode.make(self.designation)
+        canvas=Image.new('RGB',(290,290),'white')
+        draw=ImageDraw.Draw(canvas)
+        canvas.paste(qrcode_image)
+        fname=f'image-{self.designation}'+'.png'
+        buffer=BytesIO()
+        canvas.save(buffer,'PNG')
+        self.image.save(fname, File(buffer), save=False)
+        canvas.close()
+        super().save(*args, **kwargs)
     #     ean=EAN(f'{self.barre0}{self.barre1}{self.barre2}', writer=ImageWriter(format='PNG'))
     #     buffer=BytesIO()
     #     ean.writer(buffer)
@@ -75,7 +85,7 @@ class Facture(models.Model):
     
 class BordereauAdministratif(models.Model):
     client=models.ForeignKey(Client, on_delete=models.CASCADE,related_name="voir")
-    admin=models.OneToOneField(CustomUser,on_delete=models.CASCADE)
+    # admin=models.OneToOneField(CustomUser,on_delete=models.CASCADE)
     parametre=models.CharField(max_length=200)
     date=models.DateField(auto_now_add=True)
     numero_ordre=models.IntegerField()
