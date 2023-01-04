@@ -35,8 +35,8 @@ class Client(models.Model):
     nom= models.CharField(max_length=200)
     prenom= models.CharField(max_length=200)
     adresse= models.CharField(max_length=200)
-    telephone=models.CharField(max_length=200)
-    email=models.CharField(max_length=200)
+    telephone=models.CharField(max_length=200,unique=True)
+    email=models.CharField(max_length=200,unique=True)
     sexe=models.CharField(max_length=200)
 
 
