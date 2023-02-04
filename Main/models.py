@@ -38,6 +38,11 @@ class Client(models.Model):
     telephone=models.CharField(max_length=200,unique=True)
     email=models.CharField(max_length=200,unique=True)
     sexe=models.CharField(max_length=200)
+    def sexechange(self):
+        if self.sexe=="Masculin":
+            return "Monsieur"
+        elif self.sexe=="Feminin":
+            return "Madame"
 
 
 class Facture(models.Model):
