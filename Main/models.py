@@ -38,6 +38,8 @@ class Client(models.Model):
     telephone=models.CharField(max_length=200,unique=True)
     email=models.CharField(max_length=200,unique=True)
     sexe=models.CharField(max_length=200)
+    staff=models.ForeignKey(CustomUser, on_delete=models.CASCADE,null=True, default=2)
+
     def sexechange(self):
         if self.sexe=="Masculin":
             return "Monsieur"
@@ -54,16 +56,18 @@ class Facture(models.Model):
     # user=models.OneToOneField(CustomUser,on_delete=models.CASCADE,default=1)
     image=models.ImageField(upload_to='qr_codes', blank=True)
     prix_unitaire=models.IntegerField(default=40)
+    staff=models.ForeignKey(CustomUser, on_delete=models.CASCADE,null=True, default=2)
+
     # barre0=models.CharField(max_length=1,null=True)
     # barre1=models.CharField(max_length=6,null=True)
     # barre2=models.CharField(max_length=5,null=True)
 
     def save(self,*args, **kwargs):
-        qrcode_image=qrcode.make(self.designation)
+        qrcode_image=qrcode.make(self.designation,self.client.nom,self.client.prenom)
         canvas=Image.new('RGB',(290,290),'white')
         draw=ImageDraw.Draw(canvas)
         canvas.paste(qrcode_image)
-        fname=f'image-{self.designation}'+'.png'
+        fname=f'image-{self.client.prenom}'+'.png'
         buffer=BytesIO()
         canvas.save(buffer,'PNG')
         self.image.save(fname, File(buffer), save=False)
@@ -90,11 +94,12 @@ class Facture(models.Model):
     
 class BordereauAdministratif(models.Model):
     client=models.ForeignKey(Client, on_delete=models.CASCADE,related_name="voir")
-    # admin=models.OneToOneField(CustomUser,on_delete=models.CASCADE)
     parametre=models.CharField(max_length=200)
     date=models.DateField(auto_now_add=True)
     numero_ordre=models.IntegerField()
     type_echantillon=models.CharField(max_length=500)
+    staff=models.ForeignKey(CustomUser, on_delete=models.CASCADE,null=True, default=2)
+
 
 
 

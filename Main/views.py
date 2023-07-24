@@ -6,10 +6,10 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect,get_object_or_404
-
+from django.contrib.auth import get_user_model
 from Main.EmailBackend import EmailBackend
 from Main.models import Client
-from .models import *
+from Main.models import *
 from django.db.models import Sum
 
 
@@ -40,7 +40,6 @@ def acceuil(request):
         # labels.append(facture.designation)
         # data.append(facture.prix_unitaire)
     context = {
-        
         'total_client': total_client,
         'total_facture': total_facture,
         'labels':labels,
@@ -111,10 +110,12 @@ def voir_ba(request, client_id):
     return render(request, "staff/voir_ba.html",{'voir':affiche_ba})
 
 def ajouter_facture(request,client_id):
-    affiche_client=Client.objects.get(id=client_id)
+    affiche_client=Client.objects.get(id=client_id)    
+
     # user = CustomUser.objects.get(id=request.user.id)
 
     if request.method=="GET":
+
         return render(request, 'staff/add_facture.html', {'clients':affiche_client})
     elif request.method=="POST":
         designation=request.POST.get("designation")
@@ -126,7 +127,7 @@ def ajouter_facture(request,client_id):
         # barre2=request.POST.get("barre2")
         clients_id=request.POST.get("client_id")
         try:
-            facture=Facture(designation=designation,poids_en_grammes=poids_en_grammes,titre_en_caract=titre_en_caract,prix_unitaire=prix_unitaire,client_id=clients_id,)
+            facture=Facture(designation=designation,poids_en_grammes=poids_en_grammes,titre_en_caract=titre_en_caract,prix_unitaire=prix_unitaire,client_id=clients_id)
             facture.save()
             messages.success(request,"Ajout avec Success")
             return HttpResponseRedirect(reverse("index_staff"))
@@ -191,9 +192,12 @@ def add_staff(request):
 #     return render(request, 'administrateur/modifier_client.html')
 
 def do_client(request):
+
     if request.method!="POST":
+
             return HttpResponse("<h2>Method Not Allowed</h2>")
-    else:
+    else :
+        staff = request.user.id
         prenom=request.POST.get("prenom")
         nom=request.POST.get("nom")
         telephone=request.POST.get("telephone")
@@ -203,12 +207,12 @@ def do_client(request):
         
 
         try:
-            client=Client(prenom=prenom,nom=nom,telephone=telephone,adresse=adresse,email=email,sexe=sexe)
+            client=Client(prenom=prenom,nom=nom,telephone=telephone,adresse=adresse,email=email,sexe=sexe,staff=staff)
             client.save()
             messages.success(request,"Ajout avec Success")
             return HttpResponseRedirect(reverse("index_staff"))
-        except:
-            messages.error(request,"Echec de l'ajout")
+        except Exception as e :
+            messages.error(request,"Echec de l'ajout " + str(e))
             return HttpResponseRedirect(reverse("client"))
 
 
