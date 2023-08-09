@@ -63,7 +63,7 @@ class Facture(models.Model):
     # barre2=models.CharField(max_length=5,null=True)
 
     def save(self,*args, **kwargs):
-        qrcode_image=qrcode.make(self.designation,self.client.nom,self.client.prenom)
+        qrcode_image=qrcode.make(self.client.prenom)
         canvas=Image.new('RGB',(290,290),'white')
         draw=ImageDraw.Draw(canvas)
         canvas.paste(qrcode_image)

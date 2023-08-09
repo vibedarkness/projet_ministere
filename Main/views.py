@@ -311,3 +311,28 @@ def logout_user(request):
     if request.user != None:
         logout(request)
     return redirect(reverse("login"))
+
+
+
+def generate_qr(request):
+    values_from_database = Facture.objects.all()
+    qr_code_data = f"Prenom et Nom Client: {values_from_database[0].client.prenom} { values_from_database[0].client.nom}\nAdresse: {values_from_database[0].client.adresse}\nTelephone: {values_from_database[0].client.telephone}\Facture: (date: {values_from_database[0].date}, \n  Poids en gramme: {values_from_database[0].poids_en_grammes}, \n Designation: {values_from_database[0].designation})"
+
+
+
+    qr = qrcode.QRCode(
+        version=1,
+        error_correction=qrcode.constants.ERROR_CORRECT_L,
+        box_size=10,
+        border=4,
+    )
+    qr.add_data(qr_code_data)
+    qr.make(fit=True)
+
+
+    img = qr.make_image(fill_color="black", back_color="white")
+
+    response = HttpResponse(content_type="image/png")
+    img.save(response, "PNG")
+    return response
+

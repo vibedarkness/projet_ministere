@@ -45,4 +45,7 @@ urlpatterns = [
     # path("client/update_client/<int:client_id>", views.modifier_client, name='modifier_client'),
     # path("client/update_client/<int:client_id>", views.up_client, name='modifier_client'),
     # path("client/ajout_facture/<int:client_id>", views.nouveau_facture, name='ajout_facture'),
+    
+    path('generate-qr/', views.generate_qr, name='generate_qr'),
+
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) 
